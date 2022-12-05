@@ -1,1 +1,6 @@
-pycache
+*.json
+*.bat
+Github
+Logs
+__pycache__
+*.log
