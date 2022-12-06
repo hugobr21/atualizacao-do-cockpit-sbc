@@ -138,7 +138,7 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                 except:
                     pass
             # time.sleep(int(carregarParametros()["delayprecarregamento"]))
-            time.sleep(contador.delay)
+            # time.sleep(contador.delay)
             contador.contador_func(funcao_principal)
             os.chdir(r'C:\\Users\\'+ user_name +'\\Downloads')
             if 'Journey' in nomeDoArquivo and PROCESS_NAME=='TMS':
