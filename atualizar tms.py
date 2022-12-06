@@ -130,11 +130,17 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
     start_try = time.time() 
     while True:
         try:
-            time.sleep(int(carregarParametros()["delayprecarregamento"]))
+            for i in range(int(carregarParametros()["delayprecarregamento"])):
+                time.sleep(1)
+                try:
+                    nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo and ('.part' not in nomeDoArquivo)][0]
+                    break
+                except:
+                    pass
+            # time.sleep(int(carregarParametros()["delayprecarregamento"]))
             time.sleep(contador.delay)
             contador.contador_func(funcao_principal)
             os.chdir(r'C:\\Users\\'+ user_name +'\\Downloads')
-            nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo and ('.part' not in nomeDoArquivo)][0]
             if 'Journey' in nomeDoArquivo and PROCESS_NAME=='TMS':
                 apagarCSVs()
                 break
