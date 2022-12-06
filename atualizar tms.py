@@ -10,6 +10,7 @@ import time
 import json
 import os
 import numpy as np
+import traceback
 
 def verificarPausa():
     while True:
@@ -133,7 +134,7 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
             time.sleep(contador.delay)
             contador.contador_func(funcao_principal)
             os.chdir(r'C:\\Users\\'+ user_name +'\\Downloads')
-            nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo][0]
+            nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo and ('.part' not in nomeDoArquivo)][0]
             if 'Journey' in nomeDoArquivo and PROCESS_NAME=='TMS':
                 apagarCSVs()
                 break
@@ -141,6 +142,7 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                 tmsOrYMSFile = pd.read_csv(nomeDoArquivo, delimiter=',',encoding='utf8',engine='python')
             except:
                 tmsOrYMSFile = pd.read_csv(nomeDoArquivo)
+            
             colunas_indisponiveis = ['Inbound ID', 'Dispatch ID', 'Date Created', 'NFE', 'Reject Reason',
        'Inbound Date Opened', 'Inbound Date Closed', 'Inbound Carrier Name',
        'Inbound Dock ID', 'Labeling Date Printed',
@@ -155,6 +157,7 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
        'Arrived LastMile', 'Arrived Npym', 'Was Reauthorized', 'Cutoff',
        'Start Priorization', 'End Priorization', 'Arrival Logistic Type',
        'Arrival Tracking Number']
+            
             for i in tmsOrYMSFile.columns:
                 if i in colunas_indisponiveis:
                     tmsOrYMSFile[i] = ''
@@ -193,7 +196,7 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                 break
         except Exception as e:
             time.sleep(1)
-            logging.debug('Erro na função atualizarBase - ' + str(e))
+            logging.debug('Erro na função atualizarBase - ' + str(traceback.format_exc()))
             print('Não foi possível atualizar a base')
 
 
