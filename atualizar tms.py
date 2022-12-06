@@ -133,6 +133,8 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
             for i in range(int(carregarParametros()["delayprecarregamento"])):
                 time.sleep(1)
                 try:
+                    os.chdir(r'C:\\Users\\'+ user_name +'\\Downloads')
+
                     nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo and ('.part' not in nomeDoArquivo)][0]
                     break
                 except:
