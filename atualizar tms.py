@@ -247,7 +247,7 @@ def funcao_principal():
 
 user_name = os.getlogin()
 diretorio_robo = os.getcwd()
-debug_mode = True
+debug_mode = False
 log_filename_start = os.getcwd() + '\\Logs\\' + time.strftime('%d_%m_%Y %H_%M_%S') + '.log'
 logging.basicConfig(filename=log_filename_start, level=logging.DEBUG, format='%(asctime)s, %(message)s',datefmt='%m/%d/%Y %H:%M:%S')
 
