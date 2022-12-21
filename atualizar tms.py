@@ -147,10 +147,9 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                 apagarCSVs()
                 break
             try:
-                tmsOrYMSFile = pd.read_csv(nomeDoArquivo, delimiter=',',encoding='utf8',engine='python')
+                tmsOrYMSFile = pd.read_csv(nomeDoArquivo, delimiter=',',encoding='utf8',engine='python',on_bad_lines='skip')
             except:
-                tmsOrYMSFile = pd.read_csv(nomeDoArquivo)
-            
+                tmsOrYMSFile = pd.read_csv(nomeDoArquivo,on_bad_lines='skip')
             colunas_indisponiveis = ['Inbound ID', 'Dispatch ID', 'Date Created', 'NFE', 'Reject Reason',
        'Inbound Date Opened', 'Inbound Date Closed', 'Inbound Carrier Name',
        'Inbound Dock ID', 'Labeling Date Printed',
