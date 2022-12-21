@@ -138,6 +138,8 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                     nomeDoArquivo = [nomeDoArquivo for nomeDoArquivo in os.listdir() if '.csv' in nomeDoArquivo and ('.part' not in nomeDoArquivo)][0]
                     break
                 except:
+                    if debug_mode: print(traceback.format_exc())
+
                     pass
             # time.sleep(int(carregarParametros()["delayprecarregamento"]))
             # time.sleep(contador.delay)
@@ -149,6 +151,8 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
             try:
                 tmsOrYMSFile = pd.read_csv(nomeDoArquivo, delimiter=',',encoding='utf8',engine='python',on_bad_lines='skip')
             except:
+                if debug_mode: print(traceback.format_exc())
+
                 tmsOrYMSFile = pd.read_csv(nomeDoArquivo,on_bad_lines='skip')
             colunas_indisponiveis = ['Inbound ID', 'Dispatch ID', 'Date Created', 'NFE', 'Reject Reason',
        'Inbound Date Opened', 'Inbound Date Closed', 'Inbound Carrier Name',
@@ -202,6 +206,8 @@ def atualizarBase2(SAMPLE_RANGE_NAME,PROCESS_NAME):
                 del tmsOrYMSFile
                 break
         except Exception as e:
+            if debug_mode: print(traceback.format_exc())
+            
             time.sleep(1)
             logging.debug('Erro na função atualizarBase - ' + str(traceback.format_exc()))
             print('Não foi possível atualizar a base')
@@ -234,13 +240,14 @@ def funcao_principal():
         except Exception as e:
             logging.debug('Erro na função funcao_principal - ' + str(e))
             print('Não foi possível completar processo de download.')
+            if debug_mode: print(traceback.format_exc())
             pass
 
 # parametros = carregarParametros()
 
 user_name = os.getlogin()
 diretorio_robo = os.getcwd()
-
+debug_mode = True
 log_filename_start = os.getcwd() + '\\Logs\\' + time.strftime('%d_%m_%Y %H_%M_%S') + '.log'
 logging.basicConfig(filename=log_filename_start, level=logging.DEBUG, format='%(asctime)s, %(message)s',datefmt='%m/%d/%Y %H:%M:%S')
 
